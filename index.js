@@ -1,4 +1,4 @@
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
@@ -43,8 +43,8 @@ async function run() {
     })
 
     app.get('/products/:_id', async(req, res) => {
-        const product = req.params;
-        const result = await productsCollection.findOne()
+        const id = req.params._id;
+        const result = await productsCollection.findOne({ _id: new ObjectId(id) })
         res.send(result)
     })
     // Send a ping to confirm a successful connection
